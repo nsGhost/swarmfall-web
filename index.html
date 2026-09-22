@@ -48,9 +48,9 @@
       var buildUrl = "Build";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/c02058ca3ad12cdca92cd634810de992.data.unityweb",
-        frameworkUrl: buildUrl + "/7bcd85dce50933fd2f21b082150ce214.framework.js.unityweb",
-        codeUrl: buildUrl + "/5ec1572e7921860d98752b8b2f10eddd.wasm.unityweb",
+        dataUrl: buildUrl + "/85fc7b5c12b1ba9100451c449183f55d.data.unityweb",
+        frameworkUrl: buildUrl + "/7eae70be536066f138b80099821e73a5.framework.js.unityweb",
+        codeUrl: buildUrl + "/dae7e3745a7ba4e0a7ec08937ecb5885.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "HMVE Studios",
         productName: "Swarmfall",
@@ -62,8 +62,14 @@
 
       document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
+      // Match the game's first-run language choice: Spanish for Spanish browsers.
+      if (/^es(-|$)/i.test(navigator.language || "")) {
+        document.documentElement.lang = "es";
+        document.querySelector("#status").textContent = "Cargando…";
+      }
+
       var script = document.createElement("script");
-      script.src = buildUrl + "/1963ab6a43ee51253038e19c81f5a544.loader.js";
+      script.src = buildUrl + "/e010de9be8a63f11243f9ea02831eef7.loader.js";
       script.onload = function () {
         createUnityInstance(canvas, config, function (progress) {
           document.querySelector("#fill").style.width = (100 * progress) + "%";
