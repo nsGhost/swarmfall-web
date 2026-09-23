@@ -48,9 +48,9 @@
       var buildUrl = "Build";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/2b21d1b585586198a7a01a7880d8c94b.data.unityweb",
+        dataUrl: buildUrl + "/f7e268ee066547a85c077f5c95a080db.data.unityweb",
         frameworkUrl: buildUrl + "/538cf7a8648823e07c4c65d57d4e6958.framework.js.unityweb",
-        codeUrl: buildUrl + "/9af175b02c6d15684f26e9d3a61fe9be.wasm.unityweb",
+        codeUrl: buildUrl + "/40ef97e10f8f9b25a83a63a2176645a1.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "HMVE Studios",
         productName: "Swarmfall",
@@ -69,7 +69,7 @@
       }
 
       var script = document.createElement("script");
-      script.src = buildUrl + "/80f097e9ed581c195d39395bb976c0a9.loader.js";
+      script.src = buildUrl + "/020bbc39560755f1bbb5f128c5c2db59.loader.js";
       script.onload = function () {
         createUnityInstance(canvas, config, function (progress) {
           document.querySelector("#fill").style.width = (100 * progress) + "%";
