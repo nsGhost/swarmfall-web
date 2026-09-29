@@ -7,7 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Swarmfall</title>
+    <title>Armada Fall</title>
     <link rel="icon" href="TemplateData/icon.png">
     <link rel="apple-touch-icon" href="TemplateData/icon.png">
     <style>
@@ -38,7 +38,7 @@
   <body>
     <div id="wrap"><canvas id="unity-canvas" tabindex="-1"></canvas></div>
     <div id="loading">
-      <h1>Swarm<br>fall</h1>
+      <h1>Armada<br>Fall</h1>
       <div id="bar"><div id="fill"></div></div>
       <div id="status">Loading…</div>
       <div id="error"></div>
@@ -48,12 +48,12 @@
       var buildUrl = "Build";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/c85807d68ce71147dd5d5c503f2f7ef4.data.unityweb",
-        frameworkUrl: buildUrl + "/39b99d8d01c5e4cbac42f003abf5819e.framework.js.unityweb",
-        codeUrl: buildUrl + "/2d29d0a7dd0c89859460a3fd133d4ac7.wasm.unityweb",
+        dataUrl: buildUrl + "/f733c8fbef6a1dfe6d16161be25509a8.data.unityweb",
+        frameworkUrl: buildUrl + "/334297313e3feae22876e5f70ee34583.framework.js.unityweb",
+        codeUrl: buildUrl + "/5fb3108733e34431be47f6c8ed24c4fd.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "HMVE Studios",
-        productName: "Swarmfall",
+        productName: "Armada Fall",
         productVersion: "0.9.0",
         // Sharp on phones without rendering at 3x.
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
@@ -69,7 +69,7 @@
       }
 
       var script = document.createElement("script");
-      script.src = buildUrl + "/1167cb83e980a71526716c0ac0fec3fc.loader.js";
+      script.src = buildUrl + "/34762d5542c0b1b2944cb41f93dc0b4d.loader.js";
       script.onload = function () {
         createUnityInstance(canvas, config, function (progress) {
           document.querySelector("#fill").style.width = (100 * progress) + "%";
