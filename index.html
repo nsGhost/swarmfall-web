@@ -48,9 +48,9 @@
       var buildUrl = "Build";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/b0fb309ec482d6452cfe4d79044bb66a.data.unityweb",
+        dataUrl: buildUrl + "/a664927ef607708dbe0f40063412085f.data.unityweb",
         frameworkUrl: buildUrl + "/bf785f8715e4182aaf541bb0f0f6e900.framework.js.unityweb",
-        codeUrl: buildUrl + "/a4ad8f30e6c8298abfa0c99e668e6792.wasm.unityweb",
+        codeUrl: buildUrl + "/d09ef0466920c49f02df7dce377aa573.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "HMVE Studios",
         productName: "Armada Fall",
@@ -69,7 +69,7 @@
       }
 
       var script = document.createElement("script");
-      script.src = buildUrl + "/74dc3c932ab8680f30a56cb047601640.loader.js";
+      script.src = buildUrl + "/9c31998cf90287ed263c85325cd7361e.loader.js";
       script.onload = function () {
         createUnityInstance(canvas, config, function (progress) {
           document.querySelector("#fill").style.width = (100 * progress) + "%";
