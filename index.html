@@ -24,8 +24,16 @@
       #unity-canvas { display: block; width: 100%; height: 100%; background: #0a0820; touch-action: none; outline: none; }
       #loading {
         position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        gap: 18px; color: #9a90c9; font: 600 14px system-ui, -apple-system, "Segoe UI", sans-serif; background: #140f33;
+        gap: 18px; color: #9a90c9; font: 600 14px system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: #140f33 center / cover no-repeat;
       }
+      /* With a splash picture behind: the title in the sky at the top, the bar at the foot. */
+      #loading.art { justify-content: flex-start; color: #e8e4ff; text-shadow: 0 1px 4px #0a0820; }
+      #loading.art h1 { margin-top: 11vh; text-shadow: 3px 3px 0 #3fe0c5, 0 0 22px rgba(10,8,32,.85); }
+      #loading.art #bar { margin-top: auto; background: rgba(10,8,32,.55); }
+      #loading.art #error { margin-bottom: 9vh; }
+      /* A wide window shows the wide picture, which has less sky: a smaller title, nearer the top. */
+      @media (orientation: landscape) { #loading.art h1 { margin-top: 3vh; font-size: 40px; } }
       #loading h1 {
         margin: 0; font: 700 56px/0.92 system-ui, -apple-system, "Segoe UI", sans-serif; color: #ffb347;
         transform: skew(-8deg); text-shadow: 3px 3px 0 #3fe0c5; text-align: center;
@@ -48,9 +56,9 @@
       var buildUrl = "Build";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/0a0cd8ebf96d05bcba7348525ac7d757.data.unityweb",
+        dataUrl: buildUrl + "/bdf690e5617e9736f75fa951cb023394.data.unityweb",
         frameworkUrl: buildUrl + "/9653c7a933712e2fb50ffec449e15594.framework.js.unityweb",
-        codeUrl: buildUrl + "/dfd70a31fc9af2204200cbc72162883f.wasm.unityweb",
+        codeUrl: buildUrl + "/c5f4b742f8f30447b0726bdfad14aeed.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "HMVE Studios",
         productName: "Armada Fall",
@@ -62,6 +70,18 @@
 
       document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
+      // One of the three splash pictures behind the loading bar, picked afresh each visit: upright on a phone, wide
+      // in a wide window. They are rendered on the owner's machine and are not in git; a build without them keeps
+      // the plain background.
+      var art = new Image();
+      art.onload = function () {
+        var loading = document.querySelector("#loading");
+        if (!loading) return;
+        loading.style.backgroundImage = "url(" + art.src + ")";
+        loading.classList.add("art");
+      };
+      art.src = "TemplateData/splash" + (1 + Math.floor(Math.random() * 3)) + (window.innerWidth > window.innerHeight ? "w" : "") + ".jpg";
+
       // Match the game's first-run language choice: Spanish for Spanish browsers.
       if (/^es(-|$)/i.test(navigator.language || "")) {
         document.documentElement.lang = "es";
@@ -69,12 +89,28 @@
       }
 
       var script = document.createElement("script");
-      script.src = buildUrl + "/900f1cce159407f434f369160b718396.loader.js";
+      script.src = buildUrl + "/edf7c34937bf635a1421c43e7219a9e1.loader.js";
       script.onload = function () {
         createUnityInstance(canvas, config, function (progress) {
           document.querySelector("#fill").style.width = (100 * progress) + "%";
         }).then(function () {
-          document.querySelector("#loading").remove();
+          var loading = document.querySelector("#loading");
+          if (!loading.classList.contains("art")) { loading.remove(); return; }
+          // With a picture up, it stays over Unity's own short splash and then fades off the title screen, as the
+          // game's opening picture does on a phone. A tap takes it away at once.
+          document.querySelector("#bar").style.visibility = "hidden";
+          document.querySelector("#status").textContent = "";
+          var gone = false;
+          function fade() {
+            if (gone) return;
+            gone = true;
+            loading.style.transition = "opacity .4s";
+            loading.style.opacity = 0;
+            loading.style.pointerEvents = "none";
+            setTimeout(function () { loading.remove(); }, 450);
+          }
+          loading.addEventListener("pointerdown", fade);
+          setTimeout(fade, 2500);
         }).catch(function (message) {
           document.querySelector("#status").textContent = "";
           document.querySelector("#error").textContent = message;
